@@ -1,6 +1,7 @@
 package com.cydeo.steps;
 
 import com.cydeo.utility.ConfigurationReader;
+import com.cydeo.utility.DB_Util;
 import com.cydeo.utility.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Hooks {
 
     @Before
-    public void setUp(){
+    public void setUp() {
         System.out.println("this is coming from BEFORE");
         Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Driver.getDriver().manage().window().maximize();
@@ -22,16 +23,34 @@ public class Hooks {
     }
 
     @After
-    public void tearDown(Scenario scenario){
+    public void tearDown(Scenario scenario) {
         System.out.println("this is coming from AFTER");
 
-        if(scenario.isFailed()){
+        if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot,"image/png","screenshot");
+            scenario.attach(screenshot, "image/png", "screenshot");
         }
 
         Driver.closeBrowser();
 
     }
 
+
+    @Before("@db")
+    public void setUpDB() {
+
+        DB_Util.createConnection();
+        System.out.println("CONNECTING DATABASE......");
+
+    }
+
+
+    @After("@db")
+    public void destroyDB() {
+
+        DB_Util.destroy();
+        System.out.println("CLOSING DATABASE CONNECTION......");
+
+
+    }
 }

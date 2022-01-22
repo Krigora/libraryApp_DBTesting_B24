@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
                   },
 
           dryRun = false
-          ,tags="@bookCategory"
+          ,tags="@wip"
 
 )
 public class TestRunner {
