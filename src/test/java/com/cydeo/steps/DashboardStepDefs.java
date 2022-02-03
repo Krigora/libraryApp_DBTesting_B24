@@ -9,6 +9,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.sql.ResultSet;
+
 public class DashboardStepDefs
 {
     String actualUserNumbers;

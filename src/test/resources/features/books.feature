@@ -1,4 +1,4 @@
-@bookCategory
+@bookCategory @wip
 Feature: Book Category
 
   Scenario: verify book categories with UI
@@ -38,3 +38,13 @@ Feature: Book Category
     And the user navigates to "Books" page
     When I open book "Clean Code"
     Then book information must match the database for "Clean Code"
+@NZ
+  Scenario: Verify book information with category
+    Given the user logged in as "librarian"
+    And the user navigates to "Books" page
+    And Display book name and related bookCategory name from library
+    And  Find me how many book we have in each category
+    And  Display most popular book category ( this book needs to borrow to be popular.)
+    Then Display how many books are borrowed not turn back yet
+
+
